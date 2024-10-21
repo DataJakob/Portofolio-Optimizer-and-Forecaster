@@ -3,6 +3,7 @@ import yfinance as yf
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
 
 class PortofolioCloud:
@@ -34,8 +35,9 @@ class PortofolioCloud:
         for i in range(0,len(self.stocks),1):
             yahoo = yf.download(self.stocks[i], start=self.start_date, end=self.end_date)
             data = [0]
-            for j in range(0, len(yahoo['Adj Close'])-1,1):
-                selecive_data = ((yahoo['Adj Close'][j+1]/yahoo['Adj Close'][j])-1)
+            for j in range(0, yahoo.shape[0]-1,1):
+                # print(yahoo )
+                selecive_data = (yahoo['Adj Close'][j+1]/yahoo['Adj Close'][j]-1)
                 data.append(selecive_data)
             adj_close = yahoo['Adj Close']
             relevant  = [self.stocks[i], data, adj_close]
@@ -117,7 +119,9 @@ class PortofolioCloud:
         for i in range(len(self.stocks_matrix)):
             ax.plot(self.stocks_matrix[i][2]/self.stocks_matrix[i][2][0], label=self.stocks[i])
         plt.legend()
-        plt.show()
+        # plt.show()
+        plt.savefig('stocks.png')
+
 
         
 

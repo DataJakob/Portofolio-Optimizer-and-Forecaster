@@ -149,6 +149,7 @@ class Forecaster:
         # Define new target variable
         y_train_cyc = (y_train - y_fit_trend)
         y_test_cyc = (y_test - y_pred_trend)
+        # Model fitting and  prediction
         model_cyc = best_model(np.linspace(4,12,8),  np.linspace(5,13,9), X_train_cyc, y_train_cyc, cv=7)
         model_cyc.fit(X_train_cyc,y_train_cyc)
         y_fit_cyc = model_cyc.predict(X_train_cyc)
@@ -162,6 +163,7 @@ class Forecaster:
         # Define new explanatory variables
         X_train_resid = pd.concat([X_train, X_train_cyc],axis=1)
         X_test_resid = pd.concat([X_test, X_test_cyc], axis=1)
+        # Model fitting and  prediction
         model_resid = best_model(np.linspace(4,12,8),  np.linspace(5,13,9), X_train_resid, y_train_resid, cv=7)
         model_resid.fit(X_train_resid,y_train_resid)
         y_fit_resid = model_resid.predict(X_train_resid)
@@ -253,5 +255,5 @@ class Forecaster:
         fig.suptitle('ML forecasting of optimized portofolio', fontsize=20)
 
         fig.tight_layout()
-        plt.show()
-        # plt.savefig('for_ex.png')
+        # plt.show()
+        plt.savefig('forecast.png')

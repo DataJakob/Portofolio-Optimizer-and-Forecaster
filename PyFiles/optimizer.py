@@ -72,5 +72,5 @@ class Optimized:
         plt.ylabel('Return')
         plt.legend()
         plt.title('Portofolio Optimzation Plot', fontsize=20)
-        plt.show()
-        print('Hei')
+        # plt.show()
+        plt.savefig('optimization.png')
